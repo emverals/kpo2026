@@ -1,0 +1,36 @@
+[project]
+name = "vyshcat"
+version = "1.0.0"
+description = "ВышКат — консольный учёт парка кикшеринга (ДЗ №1 КПО)"
+requires-python = ">=3.11"
+dependencies = ["punq==0.9.0"]
+
+[project.optional-dependencies]
+dev = ["pytest", "pytest-cov", "mypy", "ruff"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "N", "UP", "B", "SIM", "C4", "RUF", "PL"]
+ignore = ["RUF001", "RUF002", "RUF003", "PLR0913", "PLR2004"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+
+[[tool.mypy.overrides]]
+module = "punq"
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=vyshcat --cov-report=term-missing"
+
+[tool.coverage.run]
+source = ["vyshcat"]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = ["pragma: no cover", "if __name__ == .__main__.:"]
